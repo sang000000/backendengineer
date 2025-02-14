@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 - Middleware란 무엇인가?(withDecorators)
     - Django에서 요청과 응답 사이에서 특정 기능을 수행하는 필터 역할을 하는 컴포넌트이다.
     - 보안, 인증, 요청 로깅, CORS 처리 등 다양한 기능을 구현할 수 있다.
@@ -18,5 +18,3 @@
     - JWT는 토큰을 클라이언트에 저장하고 요청마다 이를 서버에 전달하여 인증하는 방식이다.
     - JWT는 로그인 시 Access Token과 Refresh Token을 발급하며, 로그아웃 시 Refresh Token을 블랙리스트 처리하여 무효화한다.
 =======
-# backendengineer
->>>>>>> b921fd5f74e52dfb357bdd85b178383d877b0ec6
