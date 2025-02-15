@@ -18,3 +18,6 @@
     - JWT는 토큰을 클라이언트에 저장하고 요청마다 이를 서버에 전달하여 인증하는 방식이다.
     - JWT는 로그인 시 Access Token과 Refresh Token을 발급하며, 로그아웃 시 Refresh Token을 블랙리스트 처리하여 무효화한다.
 
+## 배포된 API 주소
+- Swagger UI: [http://54.180.98.94:8000/swagger/](http://54.180.98.94:8000/swagger/)
+
