@@ -9,16 +9,29 @@ class RoleSerializer(serializers.ModelSerializer):
         model = Role
         fields = ["role"]
 
+class SignupRequestSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)  
+
+    class Meta:
+        model = User
+        fields = ["username", "nickname", "password"]  # 🔥 요청에서는 password 포함
+
+class SignupResponseSerializer(serializers.ModelSerializer):
+    roles = RoleSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["username", "nickname", "roles"]  # ✅ 응답에서는 password 제거
+
 class SignupSerializers(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    roles = RoleSerializer(read_only=True)
+    
     class Meta:
         model = User
         fields = [
             "username",
             "nickname",
             "password",
-            "roles"
             
         ]
         extra_kwargs = {"password": {"write_only": True}}
@@ -27,6 +40,7 @@ class SignupSerializers(serializers.ModelSerializer):
         password = validated_data.pop("password")  # 비밀번호 따로 저장
         user = User(**validated_data)
         user.set_password(password)  # 비밀번호 암호화
+        user.roles, _ = Role.objects.get_or_create(role="USER")  # 🔹 roles를 자동으로 "USER" 설정
         user.save()
 
         return user  # 비밀번호는 응답에 포함되지 않음
@@ -37,3 +51,13 @@ class SignupSerializers(serializers.ModelSerializer):
         representation['roles'] = [{"role": instance.roles.role}]
         return representation
     
+
+class LoginRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "password",
+            
+        ]
+
